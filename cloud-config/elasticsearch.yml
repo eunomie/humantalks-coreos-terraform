@@ -1,0 +1,18 @@
+#cloud-config
+# https://coreos.com/validate/
+coreos:
+  units:
+    - name: elasticsearch.service
+      command: start
+      content: |
+        [Unit]
+        Description=Elastic Search
+        After=docker.service
+        Requires=docker.service
+
+        [Service]
+        Restart=always
+        ExecStartPre=-/usr/bin/docker kill elasticsearch
+        ExecStartPre=-/usr/bin/docker pull elasticsearch:2.4
+        ExecStart=/usr/bin/docker run --rm --hostname elasticsearch --name elasticsearch -p 9200:9200 elasticsearch:2.4
+        ExecStop=/usr/bin/docker stop elasticsearch

@@ -4,7 +4,8 @@ resource "aws_instance" "elasticsearch" {
   key_name                    = "${aws_key_pair.admin_key.key_name}"
   associate_public_ip_address = true
   subnet_id                   = "subnet-6f6f2919"
-  vpc_security_group_ids      = ["${aws_security_group.base_sg.id}"]
+  vpc_security_group_ids      = ["${aws_security_group.base_sg.id}", "${aws_security_group.elasticsearch_sg.id}"]
+  user_data                   = "${file("cloud-config/elasticsearch.yml")}"
 }
 
 resource "aws_key_pair" "admin_key" {

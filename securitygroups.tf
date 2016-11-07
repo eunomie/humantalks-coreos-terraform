@@ -33,3 +33,19 @@ resource "aws_security_group" "base_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+/*
+  elasticsearch SG
+*/
+resource "aws_security_group" "elasticsearch_sg" {
+  name        = "elasticsearch_sg"
+  description = "ElasticSearch Security Group"
+  vpc_id      = "vpc-b89ee9dc"
+
+  ingress {
+    from_port   = 9200
+    to_port     = 9200
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}

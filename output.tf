@@ -5,3 +5,7 @@ output "Elastic IP" {
 output "Elastic SSH" {
   value = "ssh core@${aws_instance.elasticsearch.public_ip} -i keys/admin"
 }
+
+output "Elastic Search Query" {
+  value = "curl http://${aws_instance.elasticsearch.public_ip}:9200"
+}
